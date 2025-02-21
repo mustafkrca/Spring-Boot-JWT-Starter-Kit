@@ -21,7 +21,7 @@
         <img src="https://img.shields.io/badge/Spring%20Security-v6-orange.svg">  
     </a>      
 </p>
-  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot 3.4.2</strong>, <strong>Java 23</strong>, <strong>Spring Security</strong> and <strong>JWT 0.12.5</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT.</p>
+  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot</strong> and <strong>Spring Security</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT.</p>
 
   <h2>Features</h2>
   <ul>
