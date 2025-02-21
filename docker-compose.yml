@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14
+    container_name: starter-kit-postgres-db
+    environment:
+      POSTGRES_USER: us
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: straterKitDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: starter-kit-springboot-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/straterKitDB
+      SPRING_DATASOURCE_USERNAME: us
+      SPRING_DATASOURCE_PASSWORD: pass
+
+volumes:
+  postgres-data:

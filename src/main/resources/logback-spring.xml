@@ -1,0 +1,30 @@
+<configuration>
+    <!-- Konsol loglama için appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %green(%level) [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log dosyası için boyut sınırlaması ve döngü -->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>3MB</maxFileSize> <!-- Maksimum dosya boyutu 3072KB (3MB) -->
+            <maxHistory>10</maxHistory> <!-- Maksimum 10 gün log tut -->
+            <totalSizeCap>30MB</totalSizeCap> <!-- Toplam log boyutu 30MB -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger ayarları -->
+    <logger name="com.TOKI:InfoApp" level="DEBUG" />
+
+    <root level="INFO">
+        <appender-ref ref="ROLLING" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
