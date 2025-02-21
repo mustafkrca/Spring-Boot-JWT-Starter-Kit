@@ -7,11 +7,11 @@
   Spring Boot JWT Authentication & Authorization Kit
   <br>
 </h1>
-  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot 3</strong> and <strong>Spring Security</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT.</p>
+  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot 3.4.2</strong>, <strong>Java 23</strong>, <strong>Spring Security</strong> and <strong>JWT 0.12.5</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT.</p>
 
   <h2>Features</h2>
   <ul>
-    <li><strong>User Authentication</strong> (Login, Register, Logout)</li>
+    <li><strong>User Authentication</strong></li>
     <li><strong>JWT-Based Authentication</strong></li>
     <li><strong>Refresh Token Mechanism</strong></li>
     <li><strong>Role-Based Access Control (RBAC)</strong></li>
