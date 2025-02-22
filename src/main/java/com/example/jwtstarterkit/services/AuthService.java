@@ -21,6 +21,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -75,6 +76,9 @@ public class AuthService {
         if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
             throw new RuntimeException("Kullanıcı adı zaten kullanılıyor.");
         }
+        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+            throw new RuntimeException("Email Zaten kullanılıyor.");
+        }
 
         String hashedPassword = passwordEncoder.encode(registerRequest.getPassword());
         User newUser = new User();
@@ -98,6 +102,25 @@ public class AuthService {
         User user = token.getUser();
         String tokenNew = tokenProvider.generateToken(user);
         return new TokenRefreshResponse(tokenNew, requestRefreshToken);
+    }
+
+    public User findOrCreateUser(String email, OAuth2User oAuth2User) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        User newUser = new User();
+        newUser.setUsername(email);
+        newUser.setEmail(email);
+        newUser.setPassword(passwordEncoder.encode("oauth2user"));
+        if (oAuth2User.getAttributes().containsKey("name")) {
+            newUser.setFullName((String) oAuth2User.getAttribute("name"));
+        }
+        Set<Authority> authorities = new HashSet<>();
+        authorities.add(getAuthority(AUTHORITY_USER));
+        newUser.setAuthorities(authorities);
+        userRepository.save(newUser);
+        return newUser;
     }
 
     private Authority getAuthority(String authority) {
