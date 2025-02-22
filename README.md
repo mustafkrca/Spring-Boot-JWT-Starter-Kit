@@ -4,7 +4,7 @@
   <br>
   <a><img src="https://github.com/khandelwal-arpit/springboot-starterkit/blob/master/docs/images/spring-framework.png" alt="spring boot"></a>
   <br>
-  Spring Boot JWT Authentication & Authorization Kit
+  Spring Boot JWT Authentication & Authorization Kit with OAuth2 
   <br>
 </h1>
   <p align="center">
@@ -21,13 +21,14 @@
         <img src="https://img.shields.io/badge/Spring%20Security-v6-orange.svg">  
     </a>      
 </p>
-  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot</strong> and <strong>Spring Security</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT.</p>
+  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot</strong>, <strong>Oauth2</strong> and <strong>Spring Security</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT,social login with OAuth2.</p>
 
   <h2>Features</h2>
   <ul>
-    <li><strong>User Authentication</strong></li>
     <li><strong>JWT-Based Authentication</strong></li>
+    <li><strong>OAuth2 Social Login Support (Google etc.)</strong></li>
     <li><strong>Refresh Token Mechanism</strong></li>
+    <li><strong>Password Reset Functionality (Forgot Password, Reset Password)</strong></li>
     <li><strong>Role-Based Access Control (RBAC)</strong></li>
     <li><strong>Global Exception Handling</strong></li>
     <li><strong>Spring Security Configuration</strong></li>
@@ -45,6 +46,7 @@
     <li><strong>Spring Data JPA</strong></li>
     <li><strong>PostgreSQL</strong></li>
     <li><strong>JWT (JSON Web Tokens)</strong></li>
+    <li><strong>OAuth2 Authentication</strong></li>
     <li><strong>Lombok</strong></li>
     <li><strong>Log4j2</strong></li>
     <li><strong>Docker & Docker Compose</strong></li>
@@ -56,7 +58,8 @@
     <li>Implements Spring Security with <code>SecurityFilterChain</code> for authentication.</li>
     <li>JWT Authentication via <code>JwtAuthenticationFilter</code>.</li>
     <li>Role-Based Access Control (RBAC) for endpoint restrictions.</li>
-    <li>Secure password storage using BCrypt hashing.</li>
+    <li>OAuth2 Authentication is enabled for third-party login providers.</li>
+    <li>Password Reset Support with token-based reset mechanism.</li>
     <li>Refresh token mechanism for extended sessions.</li>
   </ul>
 
@@ -95,6 +98,24 @@
       <td>/auth/logout</td>
       <td>User Logout</td>
       <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/oauth2/authorization/google</td>
+      <td>Google OAuth2 Login</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/forgot-password</td>
+      <td>Request password reset link</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/reset-password</td>
+      <td>Reset password using token</td>
+      <td>No</td>
     </tr>
   </tbody>
 </table>
@@ -145,8 +166,8 @@
   <ol>
     <li>
       <p><strong>Clone the repository</strong></p>
-      <pre><code>git clone https://github.com/mustafkrca/Spring-Boot-JWT-Starter-Kit.git
-cd Spring-Boot-JWT-Starter-Kit</code></pre>
+      <pre><code>git clone https://github.com/mustafkrca/Spring-Boot-JWT-Starter-Kit-with-Oauth2.git
+cd Spring-Boot-JWT-Starter-Kitt-with-Oauth2</code></pre>
     </li>
     <li>
       <p><strong>Configure Application Properties</strong></p>
