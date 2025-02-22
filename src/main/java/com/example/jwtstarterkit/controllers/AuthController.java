@@ -6,7 +6,9 @@ import com.example.jwtstarterkit.dtos.requests.TokenRefreshRequest;
 import com.example.jwtstarterkit.dtos.responses.JwtAuthenticationResponse;
 import com.example.jwtstarterkit.dtos.responses.SuccessResponse;
 import com.example.jwtstarterkit.dtos.responses.TokenRefreshResponse;
+import com.example.jwtstarterkit.entities.PasswordResetToken;
 import com.example.jwtstarterkit.exceptions.JwtAuthenticationException;
+import com.example.jwtstarterkit.security.PasswordResetService;
 import com.example.jwtstarterkit.services.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final PasswordResetService passwordResetService;
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService,PasswordResetService passwordResetService){
         this.authService = authService;
+        this.passwordResetService=passwordResetService;
     }
 
     @PostMapping("/login")
@@ -55,5 +59,20 @@ public class AuthController {
         String token = authHeader.substring(7);
         authService.logout(token);
         return ResponseEntity.ok(new SuccessResponse<>("Başarıyla çıkış yapıldı"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<SuccessResponse<String>> forgotPassword(@RequestParam("email") String email) {
+        PasswordResetToken token = passwordResetService.createPasswordResetToken(email);
+        passwordResetService.sendPasswordResetEmail(email,token);
+        return ResponseEntity.ok(new SuccessResponse<>("Şifre sıfırlama linki e-posta adresinize gönderildi."));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<SuccessResponse<String>> resetPassword(@RequestParam("token") String token, @RequestParam("newPassword") String newPassword) {
+        var user = passwordResetService.validatePasswordResetToken(token);
+        passwordResetService.updatePassword(user, newPassword);
+        passwordResetService.deleteToken(token);
+        return ResponseEntity.ok(new SuccessResponse<>("Şifre başarıyla sıfırlandı."));
     }
 }
