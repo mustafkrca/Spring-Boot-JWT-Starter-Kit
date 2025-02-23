@@ -15,6 +15,7 @@ import com.example.jwtstarterkit.repositories.UserRepository;
 import com.example.jwtstarterkit.security.JwtTokenProvider;
 import com.example.jwtstarterkit.security.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -68,6 +69,8 @@ public class AuthService {
 
         } catch (BadCredentialsException ex) {
             throw new JwtAuthenticationException("Geçersiz kullanıcı adı veya şifre", ex);
+        } catch (DataIntegrityViolationException ex) {
+            throw new JwtAuthenticationException("Bu hesap başka bir cihazda zaten açık. Lütfen önce diğer oturumu kapatın.", ex);
         }
     }
 

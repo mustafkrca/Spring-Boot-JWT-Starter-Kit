@@ -17,7 +17,7 @@ public class UserController {
     public ResponseEntity<SuccessResponse<String>> health() {
         try {
             String data = userService.healthCheck();
-            SuccessResponse response = new SuccessResponse("Sağlıklı");
+            SuccessResponse response = new SuccessResponse(data);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();

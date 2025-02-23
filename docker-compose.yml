@@ -24,5 +24,11 @@ services:
       SPRING_DATASOURCE_USERNAME: us
       SPRING_DATASOURCE_PASSWORD: pass
 
+  rabbitmq:
+    image: "rabbitmq:management"
+    container_name: starter-kit-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 volumes:
   postgres-data:

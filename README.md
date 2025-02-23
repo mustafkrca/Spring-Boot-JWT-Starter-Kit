@@ -21,13 +21,14 @@
         <img src="https://img.shields.io/badge/Spring%20Security-v6-orange.svg">  
     </a>      
 </p>
-  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot</strong>, <strong>Oauth2</strong> and <strong>Spring Security</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT,social login with OAuth2.</p>
+  <p>This repository provides a complete <strong>JWT (JSON Web Token) authentication and authorization system</strong> built with <strong>Spring Boot</strong>, <strong>Oauth2</strong>, <strong>RabbitMQ</strong> and <strong>Spring Security</strong>. It serves as a starter kit for projects requiring authentication and authorization using JWT,social login with OAuth2 , password reset mechanisms, and email queuing with RabbitMQ.</p>
 
   <h2>Features</h2>
   <ul>
     <li><strong>JWT-Based Authentication</strong></li>
     <li><strong>OAuth2 Social Login Support (Google etc.)</strong></li>
     <li><strong>Refresh Token Mechanism</strong></li>
+    <li><strong>RabbitMQ Integration for Email Queuing</strong></li>
     <li><strong>Password Reset Functionality (Forgot Password, Reset Password)</strong></li>
     <li><strong>Role-Based Access Control (RBAC)</strong></li>
     <li><strong>Global Exception Handling</strong></li>
@@ -36,7 +37,6 @@
     <li><strong>CORS Configuration</strong></li>
     <li><strong>Log4j2 for Logging</strong></li>
     <li><strong>Docker Support</strong></li>
-    <li><strong>Email Sending Support</strong></li>
   </ul>
 
   <h2>Technologies Used</h2>
@@ -44,13 +44,14 @@
     <li><strong>Spring Boot 3</strong></li>
     <li><strong>Spring Security</strong></li>
     <li><strong>Spring Data JPA</strong></li>
-    <li><strong>PostgreSQL</strong></li>
+    <li><strong>RabbitMQ Messaging</strong></li>
     <li><strong>JWT (JSON Web Tokens)</strong></li>
     <li><strong>OAuth2 Authentication</strong></li>
     <li><strong>Lombok</strong></li>
     <li><strong>Log4j2</strong></li>
     <li><strong>Docker & Docker Compose</strong></li>
     <li><strong>Spring Boot Mail</strong></li>
+    <li><strong>PostgreSQL</strong></li>
   </ul>
 
   <h2>Security</h2>
@@ -58,6 +59,7 @@
     <li>Implements Spring Security with <code>SecurityFilterChain</code> for authentication.</li>
     <li>JWT Authentication via <code>JwtAuthenticationFilter</code>.</li>
     <li>Role-Based Access Control (RBAC) for endpoint restrictions.</li>
+    <li>RabbitMQ Email Queuing for processing email requests asynchronously.</li>
     <li>OAuth2 Authentication is enabled for third-party login providers.</li>
     <li>Password Reset Support with token-based reset mechanism.</li>
     <li>Refresh token mechanism for extended sessions.</li>
@@ -189,7 +191,16 @@ spring.mail.port=587
 spring.mail.username=your-email
 spring.mail.password=your-password
 spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true</code></pre>
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+rabbitmq.queue.email.name=emailQueue
+rabbitmq.exchange.email.name=emailExchange
+rabbitmq.binding.email.name=email.routing.key
+</code></pre>
     </li>
   </ol>
 
